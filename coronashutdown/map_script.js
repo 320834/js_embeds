@@ -21,6 +21,9 @@ let delay_playloop_time = 4000;
 let interpolation_min = 0;
 let interpolation_max = 40;
 
+//List for state data
+let list_state_data = null
+
 //Obj for different levels of cases
 let inter_values = {
   value_one: 0,
@@ -36,6 +39,18 @@ let inter_values = {
 let eventAuto = new Event("autoplay_slider");
 
 //=================================================================================
+function array_compare_sort(obj1, obj2)
+{
+	if(obj1["confirmed"] > obj2["confirmed"])
+  {
+  	return -1;
+  }
+  else
+  {
+  	return 1;
+  }
+}
+
 function format_date_display(dateObj) {
   let date = "";
   let month = parseInt(dateObj.getMonth()) + 1;
@@ -75,7 +90,69 @@ function format_date_select(dateObj) {
   return date + "." + month + "." + year;
 }
 
+function add_state(name, confirmed, death) {
+  let div = document.createElement("div")
+
+  let state_div = document.createElement("p")
+  let confirmed_div = document.createElement("p")
+  let death_div = document.createElement("p")
+
+  state_div.appendChild(document.createTextNode(name));
+  confirmed_div.appendChild(document.createTextNode(confirmed));
+  death_div.appendChild(document.createTextNode(death));
+
+  state_div.setAttribute("class", "state-cases");
+  confirmed_div.setAttribute("class", "state-number confirmed");
+  death_div.setAttribute("class", "state-number deaths")
+  div.setAttribute("class", "collection-item w-dyn-item")
+
+  div.appendChild(state_div);
+  div.appendChild(confirmed_div);
+  div.appendChild(death_div);
+
+  document.getElementsByClassName("collection-list w-dyn-items")[0].appendChild(div);
+}
+
+function load_data(date)
+{
+		temp_list = []
+		for(let [key,value] of Object.entries(list_state_data))
+    {
+    	obj = {
+      	"state": key,
+        "confirmed": value["confirmed"][date],
+        "deaths": value["death"][date]
+      }
+      
+      temp_list.push(obj)
+    }
+    
+    temp_list.sort(array_compare_sort)
+    
+    for(let i = 0; i < temp_list.length; i++)
+    {
+    	let obj = temp_list[i];
+    	add_state(obj["state"], obj["confirmed"], obj["deaths"])
+    }
+}
 //=================================================================================
+
+var xhttp = new XMLHttpRequest();
+
+xhttp.open("GET", "https://raw.githubusercontent.com/320834/Geojson_data/master/state_confirmation_deaths.json", true);
+xhttp.send();
+
+xhttp.onreadystatechange = function() {
+  if (this.readyState == 4 && this.status == 200) {
+    // Typical action to be performed when the document is ready
+    let data = xhttp.responseText
+
+    list_state_data = JSON.parse(data);
+    
+    load_data("27.03.2020")
+  }
+
+};
 
 document.getElementById("active-date-new").innerText = display_date;
 
@@ -176,6 +253,13 @@ map.on("load", () => {
     ]);
 
     document.getElementById("active-date-new").innerText = display_date;
+  
+  	const myNode = document.getElementsByClassName("collection-list w-dyn-items")[0];
+    while (myNode.firstChild) {
+      myNode.removeChild(myNode.lastChild);
+    }
+    
+    load_data(filterDate)
   });
 
   document
@@ -217,6 +301,13 @@ map.on("load", () => {
       ]);
 
       document.getElementById("active-date-new").innerText = display_date;
+      
+      const myNode = document.getElementsByClassName("collection-list w-dyn-items")[0];
+    while (myNode.firstChild) {
+      myNode.removeChild(myNode.lastChild);
+    }
+    
+    load_data(filterDate)
     });
 
   let hoverId = null;
@@ -281,7 +372,7 @@ let index = days;
 //A delay to make sure the person loads the page first before autoplaying
 setTimeout(function() {
   autoplayLoop = setInterval(function() {
-    console.log(index);
+
     if (index == days) {
       index = 0;
     }
