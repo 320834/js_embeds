@@ -382,3 +382,35 @@ setTimeout(function() {
     document.getElementById("slider-new").dispatchEvent(eventAuto);
   }, autoplay_loop_time);
 }, delay_playloop_time);
+
+let triggerUp = false;
+
+//Trigger windowed movement
+document.getElementById("missing-image-df").addEventListener("click", function(e){
+	if(triggerUp === false)
+  {
+    triggerUp = true
+    document.getElementById("left-wrapper-id").style["margin-top"] = "45vh"
+    document.getElementById("left-container-id").style["opacity"] = 1 
+  }
+  else
+  {
+    triggerUp = false
+    document.getElementById("left-wrapper-id").style["margin-top"] = "90vh"
+    document.getElementById("left-container-id").style["opacity"] = 1
+  }
+});
+
+window.addEventListener("resize", function(e){
+	/* document.getElementById("left-wrapper-id").style["margin-top"] = */ 
+  if(document.documentElement.clientWidth < 992)
+  {
+  		document.getElementById("left-wrapper-id").style["margin-top"] = "90vh"
+      
+  }
+  else
+  {
+  		document.getElementById("left-wrapper-id").style["margin-top"] = "12vh"
+  }
+  
+});
