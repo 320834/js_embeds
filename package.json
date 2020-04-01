@@ -4,7 +4,7 @@
   "description": "A simple server application to serve html and css content",
   "main": "index.js",
   "scripts": {
-    "run": "node index.js"
+    "start": "node index.js"
   },
   "repository": {
     "type": "git",
