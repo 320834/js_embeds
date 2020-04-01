@@ -1,0 +1,19 @@
+{
+  "name": "js_embeds",
+  "version": "1.0.0",
+  "description": "A simple server application to serve html and css content",
+  "main": "index.js",
+  "scripts": {
+    "run": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/320834/js_embeds.git"
+  },
+  "author": "Justin C (320834)",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/320834/js_embeds/issues"
+  },
+  "homepage": "https://github.com/320834/js_embeds#readme"
+}
