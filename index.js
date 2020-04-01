@@ -1,6 +1,6 @@
 let fs = require("fs");
 const http = require('http');
-const port = 8080;
+const port = 80;
 
 const requestListener = function (req, res) {
 
