@@ -149,7 +149,7 @@ xhttp.onreadystatechange = function() {
 
     list_state_data = JSON.parse(data);
     
-    load_data("27.03.2020")
+    load_data(format_date_select(new Date()))
   }
 
 };
@@ -179,8 +179,7 @@ const map = new mapboxgl.Map({
 map.on("load", () => {
   map.addSource("county", {
     type: "geojson",
-    data:
-      "https://raw.githubusercontent.com/320834/Geojson_data/master/counties-cases.geojson"
+    data:"https://raw.githubusercontent.com/320834/Geojson_data/master/counties-cases.geojson"
   });
 
   map.addLayer(
