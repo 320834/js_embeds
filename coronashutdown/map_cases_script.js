@@ -28,11 +28,11 @@ let list_state_data = null
 let inter_values = {
   value_one: 0,
   color_one: "rgba(255, 187, 0,0)",
-  value_two: 100,
+  value_two: 10,
   color_two: "rgba(255, 187, 0,.65)", //  'rgba(255, 187, 0,.65)',
-  value_three: 1000,
+  value_three: 100,
   color_three: "rgba(255, 37, 4,.65)",
-  value_four: 10000,
+  value_four: 1000,
   color_four: "rgba(255, 37, 4,.75)"
 };
 
@@ -41,13 +41,13 @@ let eventAuto = new Event("autoplay_slider");
 //=================================================================================
 function array_compare_sort(obj1, obj2)
 {
-	if(obj1["confirmed"] > obj2["confirmed"])
+  if(obj1["confirmed"] > obj2["confirmed"])
   {
-  	return -1;
+    return -1;
   }
   else
   {
-  	return 1;
+    return 1;
   }
 }
 
@@ -115,11 +115,11 @@ function add_state(name, confirmed, death) {
 
 function load_data(date)
 {
-		temp_list = []
-		for(let [key,value] of Object.entries(list_state_data))
+    temp_list = []
+    for(let [key,value] of Object.entries(list_state_data))
     {
-    	obj = {
-      	"state": key,
+      obj = {
+        "state": key,
         "confirmed": value["confirmed"][date],
         "deaths": value["death"][date]
       }
@@ -131,8 +131,8 @@ function load_data(date)
     
     for(let i = 0; i < temp_list.length; i++)
     {
-    	let obj = temp_list[i];
-    	add_state(obj["state"], obj["confirmed"], obj["deaths"])
+      let obj = temp_list[i];
+      add_state(obj["state"], obj["confirmed"], obj["deaths"])
     }
 }
 //=================================================================================
@@ -253,7 +253,7 @@ map.on("load", () => {
 
     document.getElementById("active-date-new").innerText = display_date;
   
-  	const myNode = document.getElementsByClassName("collection-list w-dyn-items")[0];
+    const myNode = document.getElementsByClassName("collection-list w-dyn-items")[0];
     while (myNode.firstChild) {
       myNode.removeChild(myNode.lastChild);
     }
@@ -317,7 +317,7 @@ map.on("load", () => {
   });
 
   map.on("click", "county_layer", function(e) {
-    /* console.log(e) */
+    console.log(e)
   });
 
   // Change it back to a pointer when it leaves.
@@ -328,8 +328,8 @@ map.on("load", () => {
   });
 
   map.on("mousemove", "county_layer", function(e) {
-    /* popup.remove() */
-    /* console.log(e) */
+    popup.remove()
+    console.log(e)
 
     map.getCanvas().style.cursor = "cursor";
 
@@ -339,12 +339,12 @@ map.on("load", () => {
       displayStr =
         e["features"][0]["properties"]["COUNTY"] +
         " County" +
-        " (" +
-        display_date +
-        ")" +
         "<br>" +
         e["features"][0]["properties"][selected_date] +
-        " Cases ";
+        " Cases " +
+        "(" +
+        display_date +
+        ")";
     } else {
       displayStr =
         e["features"][0]["properties"]["COUNTY"] +
@@ -386,7 +386,7 @@ let triggerUp = false;
 
 //Trigger windowed movement
 document.getElementById("missing-image-df").addEventListener("click", function(e){
-	if(triggerUp === false)
+  if(triggerUp === false)
   {
     triggerUp = true
     document.getElementById("left-wrapper-id").style["margin-top"] = "45vh"
@@ -401,19 +401,17 @@ document.getElementById("missing-image-df").addEventListener("click", function(e
 });
 
 window.addEventListener("resize", function(e){
-	/* document.getElementById("left-wrapper-id").style["margin-top"] = */ 
-  if(document.documentElement.clientWidth < 1180)
+  /* document.getElementById("left-wrapper-id").style["margin-top"] =  */
+  
+  
+  if(document.documentElement.clientWidth < 992)
   {
-<<<<<<< HEAD
-  		document.getElementById("left-wrapper-id").style["margin-top"] = "84vh"
-=======
-  		document.getElementById("left-wrapper-id").style["margin-top"] = "100vh"
->>>>>>> 088be4477d1337ac90860f4439afaa0c847387d5
+      document.getElementById("left-wrapper-id").style["margin-top"] = "90vh"
       
   }
   else
   {
-  		document.getElementById("left-wrapper-id").style["margin-top"] = "4vh"
+      document.getElementById("left-wrapper-id").style["margin-top"] = "12vh"
   }
   
 });
