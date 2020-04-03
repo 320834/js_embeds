@@ -14,22 +14,24 @@ body {
   background: #ffffff;
   position: absolute;
   width: 340px;
-  padding-left: 2vh;
-  padding-right: 2vh;
-  padding-top: 2vh;
-  padding-bottom: 2vh;
+  padding-left: 20px;
+  padding-right: 20px;
+  padding-top: 20px;
+  padding-bottom: 20px;
   border-radius: 4px;
-  margin-top: 2vh;
+  margin-top: 4vh;
   margin-left: 2vh;
   background-color: rgba(255, 255, 255, 0.85);
 }
   #active-date-new{
     padding-bottom: 12px;
- font: 400 24px/20px 'Sofia Pro','Source Sans Pro', 'Helvetica Neue', Sans-serif;
+ font: 400 20px/20px 'Sofia Pro','Source Sans Pro', 'Helvetica Neue', Sans-serif;
   }
   .surrounding-element {
     height: 100vh;
     width: 100vw;
+    display: flex;
+    justify-content: center;
   }
 input[type="range"] {
  -webkit-appearance: none;
@@ -1243,9 +1245,12 @@ figcaption {
   display: flex;
   overflow: hidden;
   width: 340px;
-  height: 84vh;
-  margin-top: 14vh;
-  margin-left: 2vh;
+  margin-top: 4vh;
+  margin-left: 4vh;
+  padding-left: 20px;
+  padding-right: 20px;
+  padding-bottom: 20px;
+  border-radius: 4px;
   -webkit-box-orient: vertical;
   -webkit-box-direction: normal;
   -webkit-flex-direction: column;
@@ -1588,6 +1593,7 @@ figcaption {
 
 .open-left-container {
   display: none;
+  overflow: hidden;
 }
 
 .fsoc {
@@ -1753,6 +1759,7 @@ figcaption {
 .gradient.full {
   width: 100%;
   height: 1vh;
+
   background-image: linear-gradient(135deg, hsla(44, 0%, 100%, 0.65), rgba(255, 187, 0, 0.65) 37%, rgba(255, 37, 4, 0.65) 72%, rgba(255, 37, 4, 0.75));
 }
 
@@ -1788,6 +1795,7 @@ figcaption {
 
 .div-block-38 {
   width: 100%;
+  overflow: hidden;
 }
 
 .div-block-39 {
@@ -2254,6 +2262,7 @@ html.w-mod-js *[data-ix="load-up"] {
   }
   .open-left-container {
     position: fixed;
+    overflow: hidden;
     z-index: 1000;
     display: -webkit-box;
     display: -webkit-flex;
@@ -2815,4 +2824,3 @@ html.w-mod-js *[data-ix="load-up"] {
     margin-bottom: 70px;
   }
 }
-
