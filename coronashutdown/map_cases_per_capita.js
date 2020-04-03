@@ -279,13 +279,10 @@ map.on("load", () => {
     if (e["features"][0]["properties"][selected_date] != undefined) {
         displayStr =
         e["features"][0]["properties"]["COUNTY"] +
-        " County" +
+        " County " + "(" + display_date + ")" +
         "<br>" +
         e["features"][0]["properties"][selected_date] +
-        " Cases Per Ten-Thousand Capita " +
-        "(" +
-        display_date +
-        ")";
+        " Cases Per 10,000 People";
     } else {
         displayStr =
         e["features"][0]["properties"]["COUNTY"] +

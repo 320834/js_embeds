@@ -28,11 +28,11 @@ let list_state_data = null
 let inter_values = {
   value_one: 0,
   color_one: "rgba(255, 187, 0,0)",
-  value_two: 10,
+  value_two: 100,
   color_two: "rgba(255, 187, 0,.65)", //  'rgba(255, 187, 0,.65)',
-  value_three: 100,
+  value_three: 1000,
   color_three: "rgba(255, 37, 4,.65)",
-  value_four: 1000,
+  value_four: 10000,
   color_four: "rgba(255, 37, 4,.75)"
 };
 
@@ -338,13 +338,10 @@ map.on("load", () => {
     if (e["features"][0]["properties"][selected_date] != undefined) {
       displayStr =
         e["features"][0]["properties"]["COUNTY"] +
-        " County" +
+        " County " + "(" + display_date + ")" +
         "<br>" +
         e["features"][0]["properties"][selected_date] +
-        " Cases " +
-        "(" +
-        display_date +
-        ")";
+        " Cases"
     } else {
       displayStr =
         e["features"][0]["properties"]["COUNTY"] +
