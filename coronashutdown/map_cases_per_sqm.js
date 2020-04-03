@@ -282,7 +282,7 @@ map.on("load", () => {
         " County" +
         "<br>" +
         e["features"][0]["properties"][selected_date] +
-        " Cases Per Square Mile" +
+        " Cases Per Square Mile " +
         "(" +
         display_date +
         ")";
