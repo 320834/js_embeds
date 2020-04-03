@@ -404,7 +404,11 @@ window.addEventListener("resize", function(e){
 	/* document.getElementById("left-wrapper-id").style["margin-top"] = */ 
   if(document.documentElement.clientWidth < 1180)
   {
+<<<<<<< HEAD
   		document.getElementById("left-wrapper-id").style["margin-top"] = "84vh"
+=======
+  		document.getElementById("left-wrapper-id").style["margin-top"] = "100vh"
+>>>>>>> 088be4477d1337ac90860f4439afaa0c847387d5
       
   }
   else

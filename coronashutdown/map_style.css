@@ -1594,6 +1594,7 @@ figcaption {
 
 .open-left-container {
   display: none;
+  overflow: hidden;
 }
 
 .fsoc {
@@ -2262,6 +2263,7 @@ html.w-mod-js *[data-ix="load-up"] {
   }
   .open-left-container {
     position: fixed;
+    overflow: hidden;
     z-index: 1000;
     display: -webkit-box;
     display: -webkit-flex;
