@@ -145,7 +145,7 @@ map.on("load", () => {
         "fill-opacity": 1
         }
     },
-    /* 'settlement-label' */
+    'settlement-label'
     );  // Place polygon under these labels.
 
     //Code for slider time
@@ -258,7 +258,7 @@ map.on("load", () => {
     });
 
     map.on("click", "county_layer", function(e) {
-    /* console.log(e) */
+    console.log(e)
     });
 
     // Change it back to a pointer when it leaves.
@@ -269,17 +269,19 @@ map.on("load", () => {
     });
 
     map.on("mousemove", "county_layer", function(e) {
-    /* popup.remove() */
-    /* console.log(e) */
+    popup.remove()
+    
 
     map.getCanvas().style.cursor = "cursor";
 
     var displayStr;
+    
+    console.log(e["features"][0]["properties"][selected_date])
 
     if (e["features"][0]["properties"][selected_date] != undefined) {
         displayStr =
         e["features"][0]["properties"]["COUNTY"] +
-        " County " + "(" + display_date + ")";
+        " County " + "(" + display_date + ")" +
         "<br>" +
         e["features"][0]["properties"][selected_date] +
         " Cases Per Square Mile"
