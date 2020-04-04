@@ -27,13 +27,13 @@ let list_state_data = null
 //Obj for different levels of cases
 let inter_values = {
     value_one: 0,
-    color_one: 'rgba(35, 46, 57,.25)',
+    color_one: "rgba(18, 219, 112,0)",
     value_two: 5,
-    color_two: 'rgba(66, 49, 122, .7)',
+    color_two: "rgba(4, 191, 169,.45)", 
     value_three: 10,
-    color_three: "rgba(240, 79, 105, .85)",
+    color_three: "rgba(124, 232, 16,.75)",
     value_four: 50,
-    color_four: "rgba(254, 246, 138, .95)"
+    color_four: "rgba(230, 255, 10,.9)"
 }
 
 let eventAuto = new Event("autoplay_slider");
