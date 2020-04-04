@@ -28,12 +28,12 @@ let list_state_data = null
 let inter_values = {
     value_one: 0,
     color_one: "rgba(18, 219, 112,0)",
-    value_two: 5,
-    color_two: "rgba(4, 191, 169,.45)", 
-    value_three: 10,
-    color_three: "rgba(124, 232, 16,.75)",
-    value_four: 50,
-    color_four: "rgba(230, 255, 10,.9)"
+    value_two: 10,
+    color_two: "rgba(6, 148, 131,.3)", 
+    value_three: 100,
+    color_three: "rgba(105, 194, 16,.65)",
+    value_four: 1000,
+    color_four: "rgba(246, 255, 0,.93)"
 }
 
 let eventAuto = new Event("autoplay_slider");
@@ -282,7 +282,7 @@ map.on("load", () => {
         " County " + "(" + display_date + ")" +
         "<br>" +
         e["features"][0]["properties"][selected_date] +
-        " Cases Per 10,000 People";
+        " Cases Per 100,000 People";
     } else {
         displayStr =
         e["features"][0]["properties"]["COUNTY"] +
