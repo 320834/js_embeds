@@ -145,7 +145,7 @@ map.on("load", () => {
         "fill-opacity": 1
         }
     },
-    'settlement-label'
+
     );  // Place polygon under these labels.
 
     //Code for slider time
