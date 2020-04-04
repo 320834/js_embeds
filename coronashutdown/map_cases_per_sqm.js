@@ -28,12 +28,12 @@ let list_state_data = null
 let inter_values = {
     value_one: 0,
     color_one: 'rgba(35, 46, 57,.25)',
-    value_two: 0.1,
-    color_two: 'rgba(66, 49, 122, .7)',
-    value_three: 1,
-    color_three: "rgba(240, 79, 105, .85)",
-    value_four: 10,
-    color_four: "rgba(254, 246, 138, .95)"
+    value_two: 0.01,
+    color_two: 'rgba(39, 44, 171, .65)',
+    value_three: .1,
+    color_three: "rgba(240, 79, 146, .71)",
+    value_four: 1,
+    color_four: "rgba(254, 246, 138, .9)"
 }
 
 let eventAuto = new Event("autoplay_slider");
