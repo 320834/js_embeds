@@ -206,7 +206,6 @@ map.on("load", () => {
         "fill-opacity": 1
       }
     }
-    /* 'settlement-label' */
   ); // Place polygon under these labels.
 
   //Code for slider time
@@ -398,10 +397,9 @@ document.getElementById("missing-image-df").addEventListener("click", function(e
 });
 
 window.addEventListener("resize", function(e){
-  /* document.getElementById("left-wrapper-id").style["margin-top"] =  */
   
   
-  if(document.documentElement.clientWidth < 992)
+  if(document.documentElement.clientWidth < 1180)
   {
       document.getElementById("left-wrapper-id").style["margin-top"] = "90vh"
       
