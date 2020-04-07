@@ -13,4 +13,4 @@ require('http').createServer(function (request, response) {
         console.log(request.method + "\t" + request.url)
         file.serve(request, response);
     }).resume();
-}).listen(8080);
+}).listen(80);
