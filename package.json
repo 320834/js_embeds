@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/320834/js_embeds/issues"
   },
-  "homepage": "https://github.com/320834/js_embeds#readme"
+  "homepage": "https://github.com/320834/js_embeds#readme",
+  "dependencies": {
+    "node-static": "^0.7.11"
+  }
 }
