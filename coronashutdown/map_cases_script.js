@@ -1,6 +1,8 @@
 mapboxgl.accessToken =
   "pk.eyJ1IjoiamF5eXpodSIsImEiOiJjanA3ZmtnaWoxb2VlM3FwN2VxaGNzamZ1In0.lyXwK7yHSlpWOSSfAXhFhA";
 
+/* mapboxgl.accessToken = "pk.eyJ1IjoieWVsbG93cGFuZGEiLCJhIjoiY2s4cm4ybmI0MGR5YjNucTViNW92emF3ZiJ9.NzPSHQ2FV49jPZtaK19EKg" */
+
 let start_date = new Date("02/28/2020");
 
 let firstDate = start_date;
@@ -11,7 +13,18 @@ let display_date = format_date_display(new Date(today));
 let selected_date = format_date_select(new Date(today));
 
 let autoplayLoop = null;
+let startup_loop = null;
 let line_density = 0.5;
+
+//Pause play variables
+let pause = true
+let value_left = 0
+let use_input = false
+
+let play_button_src = "https://raw.githubusercontent.com/jasonlzhu/COVID/master/Yellow_Play.png"
+
+let pause_button_src = "https://raw.githubusercontent.com/jasonlzhu/COVID/master/Yellow_Pause.png"
+
 
 //Auto loop fields, in milliseconds
 let autoplay_loop_time = 800;
@@ -23,6 +36,9 @@ let interpolation_max = 40;
 
 //List for state data
 let list_state_data = null
+
+//Global variable to check if the data has been loading
+let loaded_data_flag = false;
 
 //Obj for different levels of cases
 let inter_values = {
@@ -153,13 +169,13 @@ xhttp.onreadystatechange = function() {
   }
 
 };
-
-document.getElementById("active-date-new").innerText = display_date;
-
+//===============================================================================
 let days = Math.floor((today - firstDate) / 1000 / 60 / 60 / 24);
 
+document.getElementById("active-date-new").innerText = display_date;
 document.getElementById("slider-new").max = days;
 document.getElementById("slider-new").value = days;
+
 
 if (screen.width <= 500) {
   line_density = 0.8;
@@ -171,7 +187,9 @@ if (screen.width >= 500) {
 
 const map = new mapboxgl.Map({
   container: "map", // container id
-  style: "mapbox://styles/jayyzhu/ck7pqm66o0aja1is18jtymybb", // stylesheet location
+  style: "mapbox://styles/jayyzhu/ck7pqm66o0aja1is18jtymybb?optimize=true", // stylesheet location
+  /* style: "mapbox://styles/yellowpanda/ck8rojb760vfl1inxfk8hlkco", */
+  /* style: "mapbox://styles/mapbox/streets-v11", */
   center: [-100.04, 38.907],
   zoom: 3
 });
@@ -180,6 +198,9 @@ map.on("load", () => {
   map.addSource("county", {
     type: "geojson",
     data:"https://raw.githubusercontent.com/320834/Geojson_data/master/counties-cases.geojson"
+    /* data: "mapbox://tileset-source/yellowpanda/11b83i88" */
+    /* url: "https://js-css-hoster.herokuapp.com/out.mbtiles" */
+    /* data: "mapbox://mapbox.2opop9hr" */
   });
 
   map.addLayer(
@@ -206,30 +227,73 @@ map.on("load", () => {
         "fill-opacity": 1
       }
     }
+    /* 'settlement-label' */
   ); // Place polygon under these labels.
+
+  let popup = new mapboxgl.Popup({
+    closeButton: false,
+    closeOnClick: false
+  });
+
+  map.on("click", "county_layer", function(e) {
+    
+  });
+
+  // Change it back to a pointer when it leaves.
+  map.on("mouseleave", "county_layer", function() {
+    map.getCanvas().style.cursor = "";
+
+    popup.remove();
+  });
+
+  map.on("mousemove", "county_layer", function(e) {
+    popup.remove()
+
+    map.getCanvas().style.cursor = "cursor";
+
+    var displayStr;
+
+    if (e["features"][0]["properties"][selected_date] != undefined) {
+      displayStr =
+        e["features"][0]["properties"]["COUNTY"] +
+        " County " + "(" + display_date + ")" +
+        "<br>" +
+        e["features"][0]["properties"][selected_date] +
+        " Cases"
+    } else {
+      displayStr =
+        e["features"][0]["properties"]["COUNTY"] +
+        " County" +
+        "<br>" +
+        "Dataset not available for this date " +
+        "(" +
+        display_date +
+        ")";
+    }
+
+    popup
+      .setLngLat(e.lngLat)
+      .setHTML(displayStr)
+      .addTo(map);
+  });
+  
+  
+});
 
   //Code for slider time
   document.getElementById("slider-new").addEventListener("input", function(e) {
-    clearInterval(autoplayLoop);
+    
+    use_input = true;
+    document.getElementById("img_play_pause").src = play_button_src;
+    pause = true;
+    value_left = e.target.value;
 
     let millitime = start_date.getTime() + 86400000 * e.target.value;
     let dateObj = new Date(millitime);
 
-    let date = "";
-    let month = parseInt(dateObj.getMonth()) + 1;
-    let year = dateObj.getFullYear();
+    
 
-    if (parseInt(dateObj.getDate()) < 10) {
-      date = "0" + dateObj.getDate();
-    } else {
-      date = dateObj.getDate();
-    }
-
-    if (month < 10) {
-      month = "0" + month;
-    }
-
-    let filterDate = date + "." + month + "." + year;
+    let filterDate = format_date_select(dateObj)
     // display_date = month + "/" + date + "/" + year;
     display_date = format_date_display(dateObj);
 
@@ -262,25 +326,22 @@ map.on("load", () => {
 
   document
     .getElementById("slider-new")
+    
     .addEventListener("autoplay_slider", function(e) {
+    
+    	/* if(use_input)
+    	      {
+    	        document.getElementById("slider-new").value = value_left;
+    	        use_input = false
+    	      } */
+
+    	console.log("Autoplay: " + e.target.value)
+      
       let millitime = start_date.getTime() + 86400000 * e.target.value;
       let dateObj = new Date(millitime);
 
-      let date = "";
-      let month = parseInt(dateObj.getMonth()) + 1;
-      let year = dateObj.getFullYear();
 
-      if (parseInt(dateObj.getDate()) < 10) {
-        date = "0" + dateObj.getDate();
-      } else {
-        date = dateObj.getDate();
-      }
-
-      if (month < 10) {
-        month = "0" + month;
-      }
-
-      let filterDate = date + "." + month + "." + year;
+      let filterDate = format_date_select(dateObj)
       display_date = format_date_display(dateObj);
 
       selected_date = filterDate;
@@ -295,7 +356,9 @@ map.on("load", () => {
         inter_values.value_two,
         inter_values.color_two,
         inter_values.value_three,
-        inter_values.color_three
+        inter_values.color_three,
+        inter_values.value_four,
+        inter_values.color_four
       ]);
 
       document.getElementById("active-date-new").innerText = display_date;
@@ -307,79 +370,7 @@ map.on("load", () => {
     
     load_data(filterDate)
     });
-
-  let hoverId = null;
-
-  let popup = new mapboxgl.Popup({
-    closeButton: false,
-    closeOnClick: false
-  });
-
-  map.on("click", "county_layer", function(e) {
-    console.log(e)
-  });
-
-  // Change it back to a pointer when it leaves.
-  map.on("mouseleave", "county_layer", function() {
-    map.getCanvas().style.cursor = "";
-
-    popup.remove();
-  });
-
-  map.on("mousemove", "county_layer", function(e) {
-    popup.remove()
-    console.log(e)
-
-    map.getCanvas().style.cursor = "cursor";
-
-    var displayStr;
-
-    if (e["features"][0]["properties"][selected_date] != undefined) {
-      displayStr =
-        e["features"][0]["properties"]["COUNTY"] +
-        " County " + "(" + display_date + ")" +
-        "<br>" +
-        e["features"][0]["properties"][selected_date] +
-        " Cases"
-    } else {
-      displayStr =
-        e["features"][0]["properties"]["COUNTY"] +
-        " County" +
-        "<br>" +
-        "Dataset not available for this date " +
-        "(" +
-        display_date +
-        ")";
-    }
-
-    popup
-      .setLngLat(e.lngLat)
-      .setHTML(displayStr)
-      .addTo(map);
-  });
-});
-
-//Code for autoplay
-
-//Code to do autoplay as default
-let index = days;
-
-//A delay to make sure the person loads the page first before autoplaying
-setTimeout(function() {
-  autoplayLoop = setInterval(function() {
-
-    if (index == days) {
-      index = 0;
-    }
-
-    index++;
-    document.getElementById("slider-new").value = index;
-    document.getElementById("slider-new").dispatchEvent(eventAuto);
-  }, autoplay_loop_time);
-}, delay_playloop_time);
-
-let triggerUp = false;
-
+    
 //Trigger windowed movement
 document.getElementById("missing-image-df").addEventListener("click", function(e){
   if(triggerUp === false)
@@ -396,7 +387,23 @@ document.getElementById("missing-image-df").addEventListener("click", function(e
   }
 });
 
+document.getElementById("img_play_pause").addEventListener("click", function(){
+	if(pause)
+  {
+		document.getElementById("img_play_pause").src = pause_button_src;
+  	pause = false;
+
+  }
+  else
+  {
+		document.getElementById("img_play_pause").src = play_button_src;
+    pause = true;
+
+  }
+})
+
 window.addEventListener("resize", function(e){
+  /* document.getElementById("left-wrapper-id").style["margin-top"] =  */
   
   
   if(document.documentElement.clientWidth < 1180)
@@ -410,3 +417,49 @@ window.addEventListener("resize", function(e){
   }
   
 });
+
+
+
+//Code for autoplay
+
+//Code to do autoplay as default
+let index = days;
+
+//A delay to make sure the person loads the page first before autoplaying
+
+autoplayLoop = setInterval(function() {
+
+	if(loaded_data_flag && !pause)
+  {
+  	if (index == days) {
+      index = 0;
+    }
+    
+    if(use_input)
+    {
+    	use_input = false;
+      index = value_left;
+    }
+
+    index++;
+    document.getElementById("slider-new").value = index;
+    document.getElementById("slider-new").dispatchEvent(eventAuto);
+  }
+  
+}, autoplay_loop_time);
+
+startup_loop = setInterval(function(){
+	loaded_data_flag = map.isSourceLoaded("county")
+	if(loaded_data_flag)
+  {
+  	document.getElementById("active-date-new").innerText = display_date;
+    clearInterval(startup_loop)
+  }
+  else
+  {
+  	document.getElementById("active-date-new").innerText = "Loading Data"
+  }
+}, 100)
+
+let triggerUp = false;
+
