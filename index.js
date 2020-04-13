@@ -1,16 +1,28 @@
-var static = require('node-static');
+let static = require('node-static');
  
 //
 // Create a node-static server instance to serve the './public' folder
 //
-var file = new static.Server('./coronashutdown');
+let file = new static.Server('./coronashutdown');
  
-require('http').createServer(function (request, response) {
+let server = require('http').createServer(function (request, response) {
+
+    
+
     request.addListener('end', function () {
-        //
-        // Serve files!
-        //
+        
+        
+
         console.log(request.method + "\t" + request.url)
-        file.serve(request, response);
+        file.serve(request, response, function(e,res){
+            if(e && (e.status === 404))
+            {
+                file.serveFile("../error.html",404,{},request,response);
+            }
+        });
     }).resume();
-}).listen(process.env.PORT || 3000);
+}).listen(3000);
+
+//process.env.PORT || 3000
+
+module.exports = server;
