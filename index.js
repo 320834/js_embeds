@@ -14,6 +14,12 @@ let server = require('http').createServer(function (request, response) {
         
 
         console.log(request.method + "\t" + request.url)
+
+        if(request.url = "/")
+        {
+            file.serve("../home.html",200,{},request,response)
+        }
+
         file.serve(request, response, function(e,res){
             if(e && (e.status === 404))
             {
