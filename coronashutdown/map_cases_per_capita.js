@@ -46,10 +46,8 @@ let inter_values = {
     value_three: 100,
     color_three: "rgba(105, 194, 16,.65)",
     value_four: 1000,
-    color_four: "rgba(200, 120, 0,.93)"
+    color_four: "rgba(246, 255, 0,.93)"
 }
-
-//246
 
 let eventAuto = new Event("autoplay_slider");
 
