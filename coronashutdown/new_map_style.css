@@ -82,13 +82,6 @@ input[type="range"]::-moz-range-thumb {
  border-radius: 50%;
 }
 
-p {
-  font-family: sofia-pro, sans-serif;
-  color: #333;
-  font-size: 14px;
-  line-height: 20px;
-}
-
 .coronavirus-map {
   position: fixed;
   width: 100vw;
@@ -309,6 +302,13 @@ p {
   -webkit-justify-content: space-between;
   -ms-flex-pack: justify;
   justify-content: space-between;
+}
+
+.legend-numbers p {
+  font-family: sofia-pro, sans-serif;
+  color: #333;
+  font-size: 14px;
+  line-height: 20px;
 }
 
 .legend-numbers.none {
