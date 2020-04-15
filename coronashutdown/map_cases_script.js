@@ -21,9 +21,9 @@ let pause = true
 let value_left = 0
 let use_input = false
 
-let play_button_src = "https://raw.githubusercontent.com/jasonlzhu/COVID/master/Yellow_Play.png"
+let play_button_src = "https://raw.githubusercontent.com/jasonlzhu/COVID/master/Yellow_Play_White%20background.png"
 
-let pause_button_src = "https://raw.githubusercontent.com/jasonlzhu/COVID/master/Yellow_Pause.png"
+let pause_button_src = "https://raw.githubusercontent.com/jasonlzhu/COVID/master/Yellow_Pause_White_background.png"
 
 
 //Auto loop fields, in milliseconds

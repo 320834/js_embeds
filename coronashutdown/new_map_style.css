@@ -37,6 +37,7 @@ body {
 /* get rid of default */
 input[type="range"] {
   -webkit-appearance: none;
+  margin-top: 7px;
   margin-left: 2%;
   display: inline-block;
   width: 90%;
