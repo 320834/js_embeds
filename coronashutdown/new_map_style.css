@@ -36,11 +36,11 @@ body {
 
 /* get rid of default */
 input[type="range"] {
- -webkit-appearance: none;
- padding-bottom: 7px;
- padding-left: 1.5%;
- display: inline-block;
- width: 90%;
+  -webkit-appearance: none;
+  margin-left: 2%;
+  display: inline-block;
+  width: 90%;
+  background: none;
 }
 
 input[type="range"]:focus {
