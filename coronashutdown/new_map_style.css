@@ -110,9 +110,7 @@ input[type="range"]::-moz-range-thumb {
   height: 84vh;
   margin-top: 4vh;
   margin-left: 4vh;
-  padding-left: 20px;
-  padding-right: 20px;
-  padding-bottom: 20px;
+  padding: 10px;
   border-radius: 4px;
   -webkit-box-orient: vertical;
   -webkit-box-direction: normal;
@@ -213,7 +211,7 @@ input[type="range"]::-moz-range-thumb {
   margin-right: 2vh;
   margin-bottom: 4px;
   margin-left: 2vh;
-  padding-top: 0.5vh;
+  padding-top: 1.5vh;
   -webkit-box-orient: horizontal;
   -webkit-box-direction: normal;
   -webkit-flex-direction: row;
@@ -307,6 +305,7 @@ input[type="range"]::-moz-range-thumb {
   font-family: sofia-pro, sans-serif;
   font-size: 16px;
   line-height: 20px;
+  margin-bottom: 0px;
 }
 
 .legend-numbers.none {
