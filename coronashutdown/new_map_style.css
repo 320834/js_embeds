@@ -2,6 +2,7 @@ body {
   margin: 0;
   padding: 0;
 }
+
 #map {
   position: absolute;
   top: 0;
@@ -82,9 +83,9 @@ input[type="range"]::-moz-range-thumb {
 }
 
 body {
-  font-family: Roboto, sans-serif;
+  font-family: sofia-pro, sans-serif;
   color: #333;
-  font-size: 14px;
+  font-size: 16px;
   line-height: 20px;
 }
 
