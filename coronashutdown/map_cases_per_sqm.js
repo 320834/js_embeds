@@ -39,13 +39,13 @@ let loaded_data_flag = false;
 //Obj for different levels of cases
 let inter_values = {
   value_one: 0,
-  color_one: 'rgba(35, 46, 57,.25)',
-  value_two: 0.01,
-  color_two: 'rgba(39, 44, 171, .65)',
-  value_three: .1,
-  color_three: "rgba(240, 79, 146, .71)",
-  value_four: 1,
-  color_four: "rgba(254, 246, 138, .9)"
+  color_one: 'rgba(18, 219, 112,.0)',
+  value_two: 0.1,
+  color_two: 'rgba(6, 148, 131,.5)',
+  value_three: 1,
+  color_three: "rgba(20, 184, 26,.8)",
+  value_four: 10,
+  color_four: "rgba(246, 255, 0,.9)"
 };
 
 let eventAuto = new Event("autoplay_slider");

@@ -294,7 +294,7 @@ input[type="range"]::-moz-range-thumb {
   display: -ms-flexbox;
   display: flex;
   width: 100%;
-  padding-top: 1.2vh;
+  padding-top: 0.3vh;
   -webkit-box-pack: justify;
   -webkit-justify-content: space-between;
   -ms-flex-pack: justify;
