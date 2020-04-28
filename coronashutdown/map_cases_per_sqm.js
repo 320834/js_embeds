@@ -176,14 +176,14 @@ map.on("load", () => {
 
     if (e["features"][0]["properties"][selected_date] != undefined) {
       displayStr =
-        e["features"][0]["properties"]["COUNTY"] +
+        e["features"][0]["properties"]["NAME"] +
         " County " + "(" + display_date + ")" +
         "<br>" +
         e["features"][0]["properties"][selected_date] +
         " Cases Per Sq Mile"
     } else {
       displayStr =
-        e["features"][0]["properties"]["COUNTY"] +
+        e["features"][0]["properties"]["NAME"] +
         " County" +
         "<br>" +
         "Dataset not available for this date " +
