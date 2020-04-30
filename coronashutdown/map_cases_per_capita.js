@@ -1,5 +1,5 @@
 mapboxgl.accessToken =
-"pk.eyJ1IjoiamF5eXpodSIsImEiOiJjanA3ZmtnaWoxb2VlM3FwN2VxaGNzamZ1In0.lyXwK7yHSlpWOSSfAXhFhA";
+"pk.eyJ1IjoiamF5eXpodSIsImEiOiJjazltNWY5MzAwamhuM21sNTVyYjFpaThzIn0.3dwMp5OMNBeUDhSNO_2rjg";
 
 let start_date = new Date("02/28/2020");
 
