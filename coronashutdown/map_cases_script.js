@@ -17,14 +17,15 @@ let startup_loop = null;
 let line_density = 0.5;
 
 //Pause play variables
-let pause = true
-let value_left = 0
-let use_input = false
+let pause = true;
+let value_left = 0;
+let use_input = false;
 
-let play_button_src = "https://raw.githubusercontent.com/jasonlzhu/COVID/master/Yellow_Play_White%20background.png"
+let play_button_src =
+  "https://raw.githubusercontent.com/jasonlzhu/COVID/master/Yellow_Play_White%20background.png";
 
-let pause_button_src = "https://raw.githubusercontent.com/jasonlzhu/COVID/master/Yellow_Pause_White_background.png"
-
+let pause_button_src =
+  "https://raw.githubusercontent.com/jasonlzhu/COVID/master/Yellow_Pause_White_background.png";
 
 //Auto loop fields, in milliseconds
 let autoplay_loop_time = 800;
@@ -35,7 +36,7 @@ let interpolation_min = 0;
 let interpolation_max = 40;
 
 //List for state data
-let list_state_data = null
+let list_state_data = null;
 
 //Global variable to check if the data has been loading
 let loaded_data_flag = false;
@@ -55,14 +56,10 @@ let inter_values = {
 let eventAuto = new Event("autoplay_slider");
 
 //=================================================================================
-function array_compare_sort(obj1, obj2)
-{
-  if(obj1["confirmed"] > obj2["confirmed"])
-  {
+function array_compare_sort(obj1, obj2) {
+  if (obj1["confirmed"] > obj2["confirmed"]) {
     return -1;
-  }
-  else
-  {
+  } else {
     return 1;
   }
 }
@@ -84,6 +81,10 @@ function format_date_display(dateObj) {
     month = "Mar";
   } else if (month == 4) {
     month = "Apr";
+  } else if (month == 5) {
+    month = "May";
+  } else if (month == 6) {
+    month = "June";
   }
   return month + "\t" + date;
 }
@@ -107,11 +108,11 @@ function format_date_select(dateObj) {
 }
 
 function add_state(name, confirmed, death) {
-  let div = document.createElement("div")
+  let div = document.createElement("div");
 
-  let state_div = document.createElement("p")
-  let confirmed_div = document.createElement("p")
-  let death_div = document.createElement("p")
+  let state_div = document.createElement("p");
+  let confirmed_div = document.createElement("p");
+  let death_div = document.createElement("p");
 
   state_div.appendChild(document.createTextNode(name));
   confirmed_div.appendChild(document.createTextNode(confirmed));
@@ -119,55 +120,57 @@ function add_state(name, confirmed, death) {
 
   state_div.setAttribute("class", "state-cases");
   confirmed_div.setAttribute("class", "state-number confirmed");
-  death_div.setAttribute("class", "state-number deaths")
-  div.setAttribute("class", "collection-item w-dyn-item")
+  death_div.setAttribute("class", "state-number deaths");
+  div.setAttribute("class", "collection-item w-dyn-item");
 
   div.appendChild(state_div);
   div.appendChild(confirmed_div);
   div.appendChild(death_div);
 
-  document.getElementsByClassName("collection-list w-dyn-items")[0].appendChild(div);
+  document
+    .getElementsByClassName("collection-list w-dyn-items")[0]
+    .appendChild(div);
 }
 
-function load_data(date)
-{
-    temp_list = []
-    for(let [key,value] of Object.entries(list_state_data))
-    {
-      obj = {
-        "state": key,
-        "confirmed": value["confirmed"][date],
-        "deaths": value["death"][date]
-      }
-      
-      temp_list.push(obj)
-    }
-    
-    temp_list.sort(array_compare_sort)
-    
-    for(let i = 0; i < temp_list.length; i++)
-    {
-      let obj = temp_list[i];
-      add_state(obj["state"], obj["confirmed"], obj["deaths"])
-    }
+function load_data(date) {
+  temp_list = [];
+  for (let [key, value] of Object.entries(list_state_data)) {
+    obj = {
+      state: key,
+      confirmed: value["confirmed"][date],
+      deaths: value["death"][date]
+    };
+
+    temp_list.push(obj);
+  }
+
+  temp_list.sort(array_compare_sort);
+
+  for (let i = 0; i < temp_list.length; i++) {
+    let obj = temp_list[i];
+    add_state(obj["state"], obj["confirmed"], obj["deaths"]);
+  }
 }
 //=================================================================================
 
 var xhttp = new XMLHttpRequest();
 
-xhttp.open("GET", "https://raw.githubusercontent.com/320834/Geojson_data/master/state_confirmation_deaths.json", true);
+xhttp.open(
+  "GET",
+  "https://raw.githubusercontent.com/320834/Geojson_data/master/state_confirmation_deaths.json",
+  true
+);
 xhttp.send();
 
 xhttp.onreadystatechange = function() {
   if (this.readyState == 4 && this.status == 200) {
     // Typical action to be performed when the document is ready
-    let data = xhttp.responseText
+    let data = xhttp.responseText;
 
     list_state_data = JSON.parse(data);
-    
-    load_data(format_date_select(new Date()))
-  }
 
+    load_data(format_date_select(new Date()));
+  }
 };
 //===============================================================================
 let days = Math.floor((today - firstDate) / 1000 / 60 / 60 / 24);
@@ -175,7 +178,6 @@ let days = Math.floor((today - firstDate) / 1000 / 60 / 60 / 24);
 document.getElementById("active-date-new").innerText = display_date;
 document.getElementById("slider-new").max = days;
 document.getElementById("slider-new").value = days;
-
 
 if (screen.width <= 500) {
   line_density = 0.8;
@@ -197,7 +199,8 @@ const map = new mapboxgl.Map({
 map.on("load", () => {
   map.addSource("county", {
     type: "geojson",
-    data:"https://raw.githubusercontent.com/320834/Geojson_data/master/counties-cases.geojson"
+    data:
+      "https://raw.githubusercontent.com/320834/Geojson_data/master/counties-cases.geojson"
     /* data: "mapbox://tileset-source/yellowpanda/11b83i88" */
     /* url: "https://js-css-hoster.herokuapp.com/out.mbtiles" */
     /* data: "mapbox://mapbox.2opop9hr" */
@@ -235,9 +238,7 @@ map.on("load", () => {
     closeOnClick: false
   });
 
-  map.on("click", "county_layer", function(e) {
-    
-  });
+  map.on("click", "county_layer", function(e) {});
 
   // Change it back to a pointer when it leaves.
   map.on("mouseleave", "county_layer", function() {
@@ -247,7 +248,7 @@ map.on("load", () => {
   });
 
   map.on("mousemove", "county_layer", function(e) {
-    popup.remove()
+    popup.remove();
 
     map.getCanvas().style.cursor = "cursor";
 
@@ -256,10 +257,13 @@ map.on("load", () => {
     if (e["features"][0]["properties"][selected_date] != undefined) {
       displayStr =
         e["features"][0]["properties"]["NAME"] +
-        " County " + "(" + display_date + ")" +
+        " County " +
+        "(" +
+        display_date +
+        ")" +
         "<br>" +
         e["features"][0]["properties"][selected_date] +
-        " Cases"
+        " Cases";
     } else {
       displayStr =
         e["features"][0]["properties"]["NAME"] +
@@ -276,25 +280,67 @@ map.on("load", () => {
       .setHTML(displayStr)
       .addTo(map);
   });
-  
-  
 });
 
-  //Code for slider time
-  document.getElementById("slider-new").addEventListener("input", function(e) {
-    
-    use_input = true;
-    document.getElementById("img_play_pause").src = play_button_src;
-    pause = true;
-    value_left = e.target.value;
+//Code for slider time
+document.getElementById("slider-new").addEventListener("input", function(e) {
+  use_input = true;
+  document.getElementById("img_play_pause").src = play_button_src;
+  pause = true;
+  value_left = e.target.value;
+
+  let millitime = start_date.getTime() + 86400000 * e.target.value;
+  let dateObj = new Date(millitime);
+
+  let filterDate = format_date_select(dateObj);
+  // display_date = month + "/" + date + "/" + year;
+  display_date = format_date_display(dateObj);
+
+  selected_date = filterDate;
+
+  //Setting the property of county for each date
+  map.setPaintProperty("county_layer", "fill-color", [
+    "interpolate",
+    ["linear"],
+    ["number", ["get", filterDate], -1],
+    inter_values.value_one,
+    inter_values.color_one,
+    inter_values.value_two,
+    inter_values.color_two,
+    inter_values.value_three,
+    inter_values.color_three,
+    inter_values.value_four,
+    inter_values.color_four
+  ]);
+
+  document.getElementById("active-date-new").innerText = display_date;
+
+  const myNode = document.getElementsByClassName(
+    "collection-list w-dyn-items"
+  )[0];
+  while (myNode.firstChild) {
+    myNode.removeChild(myNode.lastChild);
+  }
+
+  load_data(filterDate);
+});
+
+document
+  .getElementById("slider-new")
+
+  .addEventListener("autoplay_slider", function(e) {
+    /* if(use_input)
+    	      {
+    	        document.getElementById("slider-new").value = value_left;
+    	        use_input = false
+    	      } */
+
+    console.log("Autoplay: " + e.target.value);
 
     let millitime = start_date.getTime() + 86400000 * e.target.value;
     let dateObj = new Date(millitime);
 
-    
-
-    let filterDate = format_date_select(dateObj)
-    // display_date = month + "/" + date + "/" + year;
+    let filterDate = format_date_select(dateObj);
     display_date = format_date_display(dateObj);
 
     selected_date = filterDate;
@@ -315,110 +361,51 @@ map.on("load", () => {
     ]);
 
     document.getElementById("active-date-new").innerText = display_date;
-  
-    const myNode = document.getElementsByClassName("collection-list w-dyn-items")[0];
+
+    const myNode = document.getElementsByClassName(
+      "collection-list w-dyn-items"
+    )[0];
     while (myNode.firstChild) {
       myNode.removeChild(myNode.lastChild);
     }
-    
-    load_data(filterDate)
+
+    load_data(filterDate);
   });
 
-  document
-    .getElementById("slider-new")
-    
-    .addEventListener("autoplay_slider", function(e) {
-    
-    	/* if(use_input)
-    	      {
-    	        document.getElementById("slider-new").value = value_left;
-    	        use_input = false
-    	      } */
-
-    	console.log("Autoplay: " + e.target.value)
-      
-      let millitime = start_date.getTime() + 86400000 * e.target.value;
-      let dateObj = new Date(millitime);
-
-
-      let filterDate = format_date_select(dateObj)
-      display_date = format_date_display(dateObj);
-
-      selected_date = filterDate;
-
-      //Setting the property of county for each date
-      map.setPaintProperty("county_layer", "fill-color", [
-        "interpolate",
-        ["linear"],
-        ["number", ["get", filterDate], -1],
-        inter_values.value_one,
-        inter_values.color_one,
-        inter_values.value_two,
-        inter_values.color_two,
-        inter_values.value_three,
-        inter_values.color_three,
-        inter_values.value_four,
-        inter_values.color_four
-      ]);
-
-      document.getElementById("active-date-new").innerText = display_date;
-      
-      const myNode = document.getElementsByClassName("collection-list w-dyn-items")[0];
-    while (myNode.firstChild) {
-      myNode.removeChild(myNode.lastChild);
-    }
-    
-    load_data(filterDate)
-    });
-    
 //Trigger windowed movement
-document.getElementById("missing-image-df").addEventListener("click", function(e){
-  if(triggerUp === false)
-  {
-    triggerUp = true
-    document.getElementById("left-wrapper-id").style["margin-top"] = "45vh"
-    document.getElementById("left-container-id").style["opacity"] = 1 
-  }
-  else
-  {
-    triggerUp = false
-    document.getElementById("left-wrapper-id").style["margin-top"] = "90vh"
-    document.getElementById("left-container-id").style["opacity"] = 1
-  }
-});
+document
+  .getElementById("missing-image-df")
+  .addEventListener("click", function(e) {
+    if (triggerUp === false) {
+      triggerUp = true;
+      document.getElementById("left-wrapper-id").style["margin-top"] = "45vh";
+      document.getElementById("left-container-id").style["opacity"] = 1;
+    } else {
+      triggerUp = false;
+      document.getElementById("left-wrapper-id").style["margin-top"] = "90vh";
+      document.getElementById("left-container-id").style["opacity"] = 1;
+    }
+  });
 
-document.getElementById("img_play_pause").addEventListener("click", function(){
-	if(pause)
-  {
-		document.getElementById("img_play_pause").src = pause_button_src;
-  	pause = false;
-
-  }
-  else
-  {
-		document.getElementById("img_play_pause").src = play_button_src;
+document.getElementById("img_play_pause").addEventListener("click", function() {
+  if (pause) {
+    document.getElementById("img_play_pause").src = pause_button_src;
+    pause = false;
+  } else {
+    document.getElementById("img_play_pause").src = play_button_src;
     pause = true;
-
   }
-})
-
-window.addEventListener("resize", function(e){
-  /* document.getElementById("left-wrapper-id").style["margin-top"] =  */
-  
-  
-  if(document.documentElement.clientWidth < 1180)
-  {
-      document.getElementById("left-wrapper-id").style["margin-top"] = "90vh"
-      
-  }
-  else
-  {
-      document.getElementById("left-wrapper-id").style["margin-top"] = "12vh"
-  }
-  
 });
 
+window.addEventListener("resize", function(e) {
+  /* document.getElementById("left-wrapper-id").style["margin-top"] =  */
 
+  if (document.documentElement.clientWidth < 1180) {
+    document.getElementById("left-wrapper-id").style["margin-top"] = "90vh";
+  } else {
+    document.getElementById("left-wrapper-id").style["margin-top"] = "12vh";
+  }
+});
 
 //Code for autoplay
 
@@ -428,16 +415,13 @@ let index = days;
 //A delay to make sure the person loads the page first before autoplaying
 
 autoplayLoop = setInterval(function() {
-
-	if(loaded_data_flag && !pause)
-  {
-  	if (index == days) {
+  if (loaded_data_flag && !pause) {
+    if (index == days) {
       index = 0;
     }
-    
-    if(use_input)
-    {
-    	use_input = false;
+
+    if (use_input) {
+      use_input = false;
       index = value_left;
     }
 
@@ -445,21 +429,16 @@ autoplayLoop = setInterval(function() {
     document.getElementById("slider-new").value = index;
     document.getElementById("slider-new").dispatchEvent(eventAuto);
   }
-  
 }, autoplay_loop_time);
 
-startup_loop = setInterval(function(){
-	loaded_data_flag = map.isSourceLoaded("county")
-	if(loaded_data_flag)
-  {
-  	document.getElementById("active-date-new").innerText = display_date;
-    clearInterval(startup_loop)
+startup_loop = setInterval(function() {
+  loaded_data_flag = map.isSourceLoaded("county");
+  if (loaded_data_flag) {
+    document.getElementById("active-date-new").innerText = display_date;
+    clearInterval(startup_loop);
+  } else {
+    document.getElementById("active-date-new").innerText = "Loading Data";
   }
-  else
-  {
-  	document.getElementById("active-date-new").innerText = "Loading Data"
-  }
-}, 100)
+}, 100);
 
 let triggerUp = false;
-
