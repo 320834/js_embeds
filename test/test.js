@@ -94,6 +94,17 @@ describe('JS per sqm', () => {
     });
 });
 
+describe('JS seven day average percent change cases and death', ()=>{
+    it("Fetch the js for the site", (done)=>{
+        chai.request(server)
+            .get('/map_seven_day_percent_change_case_death.js')
+            .end((err,res)=>{
+                expect(res).to.have.status(200);
+                done();
+            })
+    })
+})
+
 
 describe('Test missing file', () => {
     it("Fetch missing link", (done)=>{

@@ -10,9 +10,6 @@ let server = require('http').createServer(function (request, response) {
     
 
     request.addListener('end', function () {
-        
-        
-
         console.log(request.method + "\t" + request.url)
 
         file.serve(request, response, function(e,res){
