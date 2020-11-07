@@ -21,6 +21,7 @@ let pause = true;
 let value_left = 0;
 let use_input = false;
 
+
 let play_button_src =
   "https://raw.githubusercontent.com/jasonlzhu/COVID/master/Yellow_Play_White%20background.png";
 
