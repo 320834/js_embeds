@@ -43,11 +43,11 @@ let loaded_data_flag = false;
 let inter_values = {
   value_one: 0,
   color_one: "rgba(35, 46, 57,0)",
-  value_two: 10,
+  value_two: 100,
   color_two: "rgba(39, 44, 171, .5)",
-  value_three: 100,
+  value_three: 1000,
   color_three: "rgba(240, 79, 146, .7)",
-  value_four: 1000,
+  value_four: 10000,
   color_four: "rgba(254, 246, 138, .96)"
 };
 
