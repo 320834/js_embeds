@@ -73,7 +73,9 @@ function format_date_display(dateObj) {
     date = dateObj.getDate();
   }
 
-  if (month == 2) {
+  if (month == 1) {
+    month = "Jan"
+  } else if (month == 2) {
     month = "Feb";
   } else if (month == 3) {
     month = "Mar";
@@ -96,7 +98,6 @@ function format_date_display(dateObj) {
   } else if (month == 12) {
     month = "Dec";
   } 
-
   return month + "\t" + date;
 }
 
